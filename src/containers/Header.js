@@ -4,12 +4,13 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import TextBox from '../components/TextBox'
 import Button from '../components/Button'
+import { fetchAllBooks } from '../actions/books'
 import * as headerActions from '../actions/header'
 
 class Header extends PureComponent {
   static propTypes = {
     searchText: PropTypes.string.isRequired,
-    fetchData: PropTypes.func.isRequired,
+    fetchAllBooks: PropTypes.func.isRequired,
     changeText: PropTypes.func.isRequired,
     clearData: PropTypes.func.isRequired,
     history: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -19,7 +20,7 @@ class Header extends PureComponent {
     event.target.blur();
     const { searchText } = this.props
     this.props.clearData()
-    this.props.fetchData(searchText)
+    this.props.fetchAllBooks({searchText})
     this.props.history.push('/books');
   }
 
@@ -44,7 +45,7 @@ class Header extends PureComponent {
 export default connect(
   state => ({
       searchText: state.header.searchText,
-    }),{...headerActions})(Header)
+    }),{...headerActions, fetchAllBooks})(Header)
 
 const Intro = styled.div`
   input {
