@@ -1,9 +1,4 @@
-import {
-  CHANGE_TEXT,
-  CLEAR_DATA,
-} from '../constants/ActionTypes'
-
-
+import { CHANGE_TEXT, CLEAR_DATA } from '../constants/ActionTypes'
 
 export function changeText(text) {
   return {

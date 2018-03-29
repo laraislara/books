@@ -1,29 +1,24 @@
-
 const AK = `AIzaSyAj3oBqPRNQZCJSuOQVb8195Y3tnA62W-0`
 
-export function fetchBook({bookId}) {
+export async function fetchBook({ bookId }) {
   const baseUrl = `https://www.googleapis.com/books/v1/volumes?q=id:${bookId}`
   const allUrl = `${baseUrl}&key=${AK}`
-  fetch(`${allUrl}`)
-    .then(response => {
-      if (response.ok) {
-        return response.json()
-      }
-      throw new Error('Ooooops!')
-    })
-    .then(book => ({
+  const response = await fetch(`${allUrl}`)
+  const book = await response.json()
+  if (response.ok) {
+    return {
       items: book.items,
       totalItems: book.totalItems,
       isLoaded: true,
-    }))
-    .catch(error => (
-        {error}
-      )
-    )
-
+    }
+  }
+  throw new Error(
+    `Fetch failed! ${book.message || response.statusText}.
+     Status: ${response.status}`
+  )
 }
 
-export async function fetchData({searchText, startIndex = 0}) {
+export async function fetchData({ searchText, startIndex = 0 }) {
   const baseUrl = `https://www.googleapis.com/books/v1/volumes?q=${searchText}`
   const allUrl = `${baseUrl}&key=${AK}&startIndex=${startIndex}`
   const nextIndex = startIndex + 10

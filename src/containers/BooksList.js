@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 // import styled from 'styled-components'
 import InfiniteScroll from 'react-infinite-scroller'
 import throttle from 'lodash.throttle'
-import { BooksItem } from '../components/BooksItem'
+import BooksItem from '../components/BooksItem'
 import { fetchAllBooks } from '../actions/books'
 
 class BooksList extends PureComponent {
@@ -18,7 +18,7 @@ class BooksList extends PureComponent {
 
   handlePageScroll = () => {
     const { searchText, startIndex } = this.props
-    this.props.fetchAllBooks({searchText, startIndex})
+    this.props.fetchAllBooks({ searchText, startIndex })
   }
 
   render() {
