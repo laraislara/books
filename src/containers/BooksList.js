@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 // import styled from 'styled-components'
@@ -7,7 +7,7 @@ import throttle from 'lodash.throttle'
 import BooksItem from '../components/BooksItem'
 import { fetchAllBooks } from '../actions/books'
 
-class BooksList extends PureComponent {
+class BooksList extends React.Component {
   static propTypes = {
     books: PropTypes.arrayOf(PropTypes.any).isRequired,
     isLoaded: PropTypes.bool.isRequired,

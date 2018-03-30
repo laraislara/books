@@ -5,6 +5,7 @@ import {
   BOOKS_DATA_FAIL,
   ALL_BOOKS_REQUESTED,
   ONE_BOOK_REQUESTED,
+  CHANGE_TEXT,
 } from './constants/ActionTypes'
 import { fetchBook, fetchData} from './fetchers'
 
@@ -30,6 +31,7 @@ function* fetchDataSaga(action) {
   try {
     const payload = yield call(fetchData, action.payload)
     yield put({ type: BOOKS_DATA_SUCCESS, payload })
+    yield put({ type: CHANGE_TEXT, payload: action.payload})
   } catch (e) {
     yield put({ type: BOOKS_DATA_FAIL, message: e.message })
   }

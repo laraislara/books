@@ -1,20 +1,22 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchAllBooks } from '../actions/books'
+import { clearData } from '../actions/header'
 
-class BooksItem extends PureComponent {
+class BooksItem extends React.Component {
   static propTypes = {
     item: PropTypes.objectOf(PropTypes.any).isRequired,
-    searchText: PropTypes.string.isRequired,
     fetchAllBooks: PropTypes.func.isRequired,
+    clearData: PropTypes.func.isRequired,
   }
 
   handleClick = event => {
+    this.props.clearData()
     const value = event.target.innerText
-    this.props.fetchAllBooks({ value })
+    this.props.fetchAllBooks({ searchText: value })
   }
 
   render() {
@@ -58,7 +60,7 @@ export default connect(
   state => ({
     searchText: state.header.searchText,
   }),
-  { fetchAllBooks }
+  { fetchAllBooks, clearData }
 )(BooksItem)
 
 const Intro = styled.div`
