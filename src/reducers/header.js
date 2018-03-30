@@ -1,15 +1,13 @@
-import {
-  CHANGE_TEXT,
-} from '../constants/ActionTypes'
+import { CHANGE_TEXT } from '../constants/ActionTypes'
 
 const initialState = {
   searchText: '',
 }
 
-export default (state = initialState, {type, payload}) => {
+export default (state = initialState, { type, payload }) => {
   switch (type) {
     case CHANGE_TEXT:
-      return {searchText: payload.text}
+      return { ...state, searchText: payload.text }
     default:
       return state
   }

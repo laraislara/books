@@ -16,7 +16,8 @@ class BooksItem extends React.Component {
   handleClick = event => {
     this.props.clearData()
     const value = event.target.innerText
-    this.props.fetchAllBooks({ searchText: value })
+    this.props.fetchAllBooks({ searchText: `inauthor:${value}` })
+    window.scrollTo(0, 0)
   }
 
   render() {

@@ -7,11 +7,11 @@ import {
   ONE_BOOK_REQUESTED,
   CHANGE_TEXT,
 } from './constants/ActionTypes'
-import { fetchBook, fetchData} from './fetchers'
+import { fetchBook, fetchData } from './fetchers'
 
 // worker ONE_BOOKS
 function* fetchBookSaga(action) {
-  yield put({type: BOOKS_DATA_START})
+  yield put({ type: BOOKS_DATA_START })
   try {
     const payload = yield call(fetchBook, action.payload)
     yield put({ type: BOOKS_DATA_SUCCESS, payload })
@@ -27,11 +27,11 @@ function* bookSaga() {
 
 // worker ALL_BOOKS
 function* fetchDataSaga(action) {
-  yield put({type: BOOKS_DATA_START})
+  yield put({ type: BOOKS_DATA_START })
   try {
     const payload = yield call(fetchData, action.payload)
     yield put({ type: BOOKS_DATA_SUCCESS, payload })
-    yield put({ type: CHANGE_TEXT, payload: action.payload})
+    // yield put({ type: CHANGE_TEXT, payload: action.payload})
   } catch (e) {
     yield put({ type: BOOKS_DATA_FAIL, message: e.message })
   }
@@ -44,10 +44,7 @@ function* dataSaga() {
 
 // merge sagas
 function* rootSaga() {
-  yield [
-    fork(bookSaga),
-    fork(dataSaga),
-  ]
+  yield [fork(bookSaga), fork(dataSaga)]
 }
 
 export default rootSaga
