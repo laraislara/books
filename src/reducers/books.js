@@ -10,6 +10,7 @@ const initialState = {
   totalItems: 0,
   isLoaded: false,
   startIndex: 0,
+  hasMore: false,
 }
 
 export default (state = initialState, {type, payload}) => {
@@ -26,10 +27,11 @@ export default (state = initialState, {type, payload}) => {
         totalItems: payload.totalItems,
         isLoaded: payload.isLoaded,
         startIndex: payload.startIndex,
+        hasMore: payload.hasMore,
       }
 
     case BOOKS_DATA_FAIL:
-      return {state, isLoaded: false}
+      return {...state, isLoaded: false, hasMore: false}
 
     case CLEAR_DATA:
       return {
@@ -37,6 +39,7 @@ export default (state = initialState, {type, payload}) => {
         totalItems: payload.totalItems,
         isLoaded: payload.isLoaded,
         startIndex: initialState.startIndex,
+        hasMore: initialState.hasMore,
       }
 
     default:

@@ -7,7 +7,7 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case CHANGE_TEXT:
-      return { ...state, searchText: payload.text }
+      return {searchText: payload.searchText }
     default:
       return state
   }

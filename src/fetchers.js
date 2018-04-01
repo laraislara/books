@@ -24,15 +24,17 @@ export async function fetchData({ searchText, startIndex = 0 }) {
   const nextIndex = startIndex + 10
   const response = await fetch(`${allUrl}`)
   const data = await response.json()
-  if (response.ok) {
+  if (response.ok && data.items) {
     return {
-      items: data.items,
+      items: data.items || {},
       totalItems: data.totalItems,
       isLoaded: true,
       startIndex: nextIndex,
+      hasMore: data.totalItems > nextIndex,
       searchText
     }
   }
+
   throw new Error(
     `Fetch failed! ${data.message || response.statusText}.
      Status: ${response.status}`

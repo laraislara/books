@@ -1,4 +1,4 @@
-import { fork, call, put, takeEvery } from 'redux-saga/effects'
+import { fork, call, put, takeLatest } from 'redux-saga/effects'
 import {
   BOOKS_DATA_START,
   BOOKS_DATA_SUCCESS,
@@ -22,7 +22,7 @@ function* fetchBookSaga(action) {
 
 // watcher ONE_BOOKS
 function* bookSaga() {
-  yield takeEvery(ONE_BOOK_REQUESTED, fetchBookSaga)
+  yield takeLatest(ONE_BOOK_REQUESTED, fetchBookSaga)
 }
 
 // worker ALL_BOOKS
@@ -31,7 +31,7 @@ function* fetchDataSaga(action) {
   try {
     const payload = yield call(fetchData, action.payload)
     yield put({ type: BOOKS_DATA_SUCCESS, payload })
-    // yield put({ type: CHANGE_TEXT, payload: action.payload})
+    yield put({ type: CHANGE_TEXT, payload: action.payload})
   } catch (e) {
     yield put({ type: BOOKS_DATA_FAIL, message: e.message })
   }
@@ -39,7 +39,7 @@ function* fetchDataSaga(action) {
 
 // watcher ALL_BOOKS
 function* dataSaga() {
-  yield takeEvery(ALL_BOOKS_REQUESTED, fetchDataSaga)
+  yield takeLatest(ALL_BOOKS_REQUESTED, fetchDataSaga)
 }
 
 // merge sagas

@@ -11,6 +11,7 @@ class BooksList extends React.Component {
   static propTypes = {
     books: PropTypes.arrayOf(PropTypes.any).isRequired,
     isLoaded: PropTypes.bool.isRequired,
+    hasMore: PropTypes.bool.isRequired,
     fetchAllBooks: PropTypes.func.isRequired,
     searchText: PropTypes.string.isRequired,
     startIndex: PropTypes.number.isRequired,
@@ -22,14 +23,15 @@ class BooksList extends React.Component {
   }
 
   render() {
-    const { books, isLoaded } = this.props
+    const { books, isLoaded, hasMore } = this.props
     return (
       <div>
         {isLoaded && (
           <InfiniteScroll
             pageStart={0}
             loadMore={this.handlePageScroll}
-            hasMore={() => throttle(() => true, 2000)}
+            // hasMore={() => throttle(() => hasMore, 1000)}
+            hasMore={hasMore}
             loader={<div className="loader">Loading ...</div>}
           >
             {books.map(item => <BooksItem item={item} key={item.id} />)}

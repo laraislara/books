@@ -21,7 +21,7 @@ class BooksItem extends React.Component {
   }
 
   render() {
-    const { item } = this.props
+    const {item} = this.props
     return (
       <Intro>
         <div>
@@ -38,18 +38,20 @@ class BooksItem extends React.Component {
           />
           <span>
             {item.volumeInfo.authors &&
-              item.volumeInfo.authors.length > 0 && (
-                <a onClick={this.handleClick}>{item.volumeInfo.authors.join(', ')}</a>
-              )}
+            item.volumeInfo.authors.length > 0 &&
+
+            item.volumeInfo.authors
+              .map(el => (<a onClick={this.handleClick}>{el}</a>))
+              .reduce((prev, curr) => [prev, ', ', curr])}
           </span>
           <span>
             {item.volumeInfo.publishedDate &&
-              ` ${new Date(item.volumeInfo.publishedDate).toLocaleString('ru', { year: 'numeric' })}`}{' '}
+            ` ${new Date(item.volumeInfo.publishedDate).toLocaleString('ru', {year: 'numeric'})}`}{' '}
           </span>
           <span>
             <a href={item.volumeInfo.previewLink}>Предварительный просмотр</a>
           </span>
-          <br />
+          <br/>
           <span>{item.volumeInfo.description ? `${item.volumeInfo.description.slice(0, 200)}...` : ''}</span>
         </div>
       </Intro>
